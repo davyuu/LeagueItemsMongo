@@ -9,7 +9,7 @@ import com.davyuu.leagueappmongo.second.SecondFragment;
 
 public class MainViewPagerAdapter extends FragmentStatePagerAdapter {
     public static final int PAGE_ITEM_FRAGMENT = 0;
-    public static final int PAGE_SECOND_FRRAGMENT = 1;
+    public static final int PAGE_SECOND_FRAGMENT = 1;
     private static final int NUM_PAGES = 2;
     public Fragment[] fragmentList = new Fragment[NUM_PAGES];
 
@@ -26,7 +26,7 @@ public class MainViewPagerAdapter extends FragmentStatePagerAdapter {
                     fragmentList[position] = itemFragment;
                 }
                 return fragmentList[position];
-            case PAGE_SECOND_FRRAGMENT:
+            case PAGE_SECOND_FRAGMENT:
                 if (fragmentList[position] == null) {
                     SecondFragment secondFragment = SecondFragment.newInstance();
                     fragmentList[position] = secondFragment;
