@@ -1,17 +1,17 @@
 package com.davyuu.leagueappmongo.main;
 
+import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 
+import com.davyuu.leagueappmongo.NetworkManager;
 import com.davyuu.leagueappmongo.R;
-
-import static com.davyuu.leagueappmongo.main.MainViewPagerAdapter.PAGE_ITEM_FRAGMENT;
 
 public class MainActivity extends AppCompatActivity {
 
-    ViewPager viewPager;
-    MainViewPagerAdapter mainViewPagerAdapter;
+    private ViewPager viewPager;
+    private MainViewPagerAdapter mainViewPagerAdapter;
+    private NetworkManager networkManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         setupMainViewPager();
+        setupNetworkManager();
     }
 
     private void setupMainViewPager() {
@@ -42,5 +43,13 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void setupNetworkManager() {
+        networkManager = new NetworkManager();
+    }
+
+    public NetworkManager getNetworkManager() {
+        return networkManager;
     }
 }
