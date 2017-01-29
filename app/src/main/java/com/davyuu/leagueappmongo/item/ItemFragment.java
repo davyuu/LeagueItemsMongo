@@ -4,11 +4,20 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.davyuu.leagueappmongo.R;
+import com.davyuu.leagueappmongo.main.MainActivity;
+import com.davyuu.leagueappmongo.models.Item;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,6 +38,9 @@ public class ItemFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+    private ItemAdapter itemAdapter;
+    private List<Item> allItems;
+    private RecyclerView itemRecyclerView;
 
     public ItemFragment() {
         // Required empty public constructor
@@ -63,13 +75,20 @@ public class ItemFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        itemRecyclerView = (RecyclerView) getActivity().findViewById(R.id.item_recycler_view);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_item, container, false);
+        View view = inflater.inflate(R.layout.fragment_item, container, false);
+        setupRecyclerViews();
+        return view;
+    }
+
+    private void setupRecyclerViews() {
+        itemRecyclerView.setAdapter(itemAdapter);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -88,6 +107,25 @@ public class ItemFragment extends Fragment {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
+
+        setupFragment();
+    }
+
+    private void setupFragment() {
+        itemAdapter = new ItemAdapter(getActivity());
+        ((MainActivity) getActivity())
+                .getNetworkManager()
+                .getAllItems(new Callback<List<Item>>() {
+                    @Override
+                    public void onResponse(Call<List<Item>> call, Response<List<Item>> response) {
+                        allItems = response.body();
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<Item>> call, Throwable t) {
+
+                    }
+                });
     }
 
     @Override

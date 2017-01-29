@@ -16,9 +16,8 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
-    MainViewPagerAdapter mainViewPagerAdapter;
-    List<Item> allItems;
-    Item item;
+    private MainViewPagerAdapter mainViewPagerAdapter;
+    private NetworkManager networkManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,27 +33,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setupNetworkManager() {
-        NetworkManager networkManager = new NetworkManager();
-        networkManager.getAllItems(new Callback<List<Item>>() {
-            @Override
-            public void onResponse(Call<List<Item>> call, Response<List<Item>> response) {
-                allItems = response.body();
-            }
+        networkManager = new NetworkManager();
+    }
 
-            @Override
-            public void onFailure(Call<List<Item>> call, Throwable t) {
-
-            }
-        });
-        networkManager.getItemById(new Callback<Item>() {
-            @Override
-            public void onResponse(Call<Item> call, Response<Item> response) {
-                item = response.body();
-            }
-
-            @Override
-            public void onFailure(Call<Item> call, Throwable t) {
-            }
-        }, 3);
+    public NetworkManager getNetworkManager(){
+        return networkManager;
     }
 }
