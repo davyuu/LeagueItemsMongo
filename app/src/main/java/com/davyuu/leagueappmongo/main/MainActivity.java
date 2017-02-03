@@ -19,9 +19,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.main_layout);
         viewPager = (ViewPager) findViewById(R.id.main_viewpager);
 
-
         setupMainViewPager();
-        setupNetworkManager();
     }
 
     private void setupMainViewPager() {
@@ -35,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
-                // TODO: 2017-01-22  
+
             }
 
             @Override
@@ -43,13 +41,5 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-    }
-
-    private void setupNetworkManager() {
-        networkManager = new NetworkManager();
-    }
-
-    public NetworkManager getNetworkManager() {
-        return networkManager;
     }
 }
