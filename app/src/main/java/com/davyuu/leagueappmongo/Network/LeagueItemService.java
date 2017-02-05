@@ -4,15 +4,15 @@ import com.davyuu.leagueappmongo.models.Item;
 
 import java.util.List;
 
-import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
+import rx.Observable;
 
 public interface LeagueItemService {
 
     @GET("items")
-    Call<List<Item>> getAllItems();
+    Observable<List<Item>> getAllItems();
 
     @GET("items")
-    Call<Item> getItemById(@Query("id") int id);
+    Observable<Item> getItemById(@Query("id") int id);
 }
