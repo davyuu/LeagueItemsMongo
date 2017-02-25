@@ -1,4 +1,4 @@
-package com.davyuu.leagueappmongo;
+package com.davyuu.leagueappmongo.Network;
 
 import com.davyuu.leagueappmongo.Network.LeagueItemService;
 import com.davyuu.leagueappmongo.models.Item;

@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
-import com.davyuu.leagueappmongo.NetworkManager;
+import com.davyuu.leagueappmongo.Network.NetworkManager;
 import com.davyuu.leagueappmongo.R;
 
 public class MainActivity extends AppCompatActivity {
@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_layout);
+        setContentView(R.layout.main_activity_layout);
         viewPager = (ViewPager) findViewById(R.id.main_viewpager);
 
         setupMainViewPager();

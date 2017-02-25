@@ -2,6 +2,7 @@ package com.davyuu.leagueappmongo;
 
 import android.support.multidex.MultiDexApplication;
 
+import com.davyuu.leagueappmongo.Network.NetworkManager;
 import com.davyuu.leagueappmongo.models.Item;
 
 import java.util.List;
