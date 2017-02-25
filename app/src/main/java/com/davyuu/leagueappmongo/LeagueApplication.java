@@ -1,6 +1,7 @@
 package com.davyuu.leagueappmongo;
 
 import android.support.multidex.MultiDexApplication;
+import android.util.Log;
 
 import com.davyuu.leagueappmongo.Network.NetworkManager;
 import com.davyuu.leagueappmongo.models.Item;
@@ -27,10 +28,9 @@ public class LeagueApplication extends MultiDexApplication {
     }
 
     public static void populateAllItems() {
-        Subscriber<List<Item>> subscriber = new Subscriber<List<Item>>() {
+        NetworkManager.getAllItems(new Subscriber<List<Item>>() {
             @Override
             public void onCompleted() {
-                itemSubject.onCompleted();
             }
 
             @Override
@@ -44,7 +44,6 @@ public class LeagueApplication extends MultiDexApplication {
                     itemSubject.onNext(item);
                 }
             }
-        };
-        NetworkManager.getAllItems(subscriber);
+        });
     }
 }

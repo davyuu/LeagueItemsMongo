@@ -1,6 +1,5 @@
 package com.davyuu.leagueappmongo.Network;
 
-import com.davyuu.leagueappmongo.Network.LeagueItemService;
 import com.davyuu.leagueappmongo.models.Item;
 
 import java.util.List;
@@ -19,9 +18,9 @@ public class NetworkManager {
 
     public static void init() {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(baseUrl)
-                .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .baseUrl(baseUrl)
                 .build();
 
         service = retrofit.create(LeagueItemService.class);
@@ -32,7 +31,7 @@ public class NetworkManager {
             @Override
             public void run() {
                 service.getAllItems()
-                        .subscribeOn(Schedulers.io())
+                        .subscribeOn(Schedulers.newThread())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(itemListSubscriber);
             }
@@ -44,7 +43,7 @@ public class NetworkManager {
             @Override
             public void run() {
                 service.getItemById(id)
-                        .subscribeOn(Schedulers.io())
+                        .subscribeOn(Schedulers.newThread())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(itemSubscriber);
             }

@@ -16,8 +16,6 @@ import rx.Subscriber;
 
 public class ItemAdapter extends RecyclerView.Adapter {
 
-    public static final int ITEM_VIEW_TYPE = 0;
-
     private final Activity activity;
     private Subscriber<Item> itemSubscriber;
     private List<Item> itemList = new ArrayList<>();
@@ -50,7 +48,7 @@ public class ItemAdapter extends RecyclerView.Adapter {
                         }
                     }
                     itemList.add(item);
-                    notifyItemInserted(position);
+                    notifyItemChanged(position);
                 }
             }
         };

@@ -1,6 +1,6 @@
 package com.davyuu.leagueappmongo.item;
 
-import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,9 +14,8 @@ import com.davyuu.leagueappmongo.R;
 
 public class ItemFragment extends Fragment {
 
-    private Activity activity;
     private RecyclerView itemRecyclerView;
-
+    private ItemAdapter itemAdapter;
 
     public ItemFragment() {
         // Required empty public constructor
@@ -27,15 +26,33 @@ public class ItemFragment extends Fragment {
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        this.activity = activity;
+    public void onResume() {
+        super.onResume();
+        getData();
+    }
+
+    private void getData() {
+        LeagueApplication.populateAllItems();
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        LeagueApplication.populateAllItems();
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        createItemAdapter();
+    }
+
+    private void createItemAdapter() {
+        itemAdapter = new ItemAdapter(getActivity());
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        if (itemAdapter != null) {
+            itemAdapter.onDestroy();
+            itemAdapter = null;
+        }
     }
 
     @Override
@@ -43,13 +60,8 @@ public class ItemFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.item_fragment_layout, container, false);
         itemRecyclerView = (RecyclerView) view.findViewById(R.id.item_recycler_view);
-        itemRecyclerView.setLayoutManager(new LinearLayoutManager(activity));
-        itemRecyclerView.setAdapter(new ItemAdapter(activity));
+        itemRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        itemRecyclerView.setAdapter(itemAdapter);
         return view;
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
     }
 }
